@@ -1,0 +1,142 @@
+/* style.css */
+body {
+    overflow-x: hidden; /* Prevenir rolagem horizontal do body */
+    /* A fonte base já é definida pelo Tailwind e Google Fonts no HTML, mas você pode adicionar fallbacks aqui se desejar */
+}
+
+.layout-container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.layout-content-container {
+    word-break: break-word; /* Quebrar palavras longas para evitar overflow */
+}
+
+/* Ajustes para responsividade dos cards */
+.grid {
+    /* Tailwind já oferece classes para grid, mas se precisar de um fallback ou configuração específica */
+    /* grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); */
+}
+
+/* Ajustes para o título da seção principal em telas pequenas */
+#mainContentTitle {
+    min-width: 0; /* Remover min-width padrão para permitir que encolha melhor */
+}
+
+/* Estilos para Modal (simples) */
+.modal {
+    display: none; /* Oculto por padrão */
+    position: fixed; /* Fica fixo na tela */
+    z-index: 100; /* Fica sobre outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Habilita scroll se o conteúdo for maior que a tela */
+    background-color: rgba(0,0,0,0.6); /* Fundo preto com opacidade */
+}
+
+.modal-content {
+    background-color: #1f2937; /* Cor de fundo do modal (cinza escuro) */
+    margin: 10% auto; /* 10% do topo e centralizado horizontalmente */
+    padding: 25px;
+    border: 1px solid #374151; /* Borda cinza */
+    width: 90%; /* Responsivo, ocupa 90% da largura da tela */
+    max-width: 600px; /* Largura máxima do modal */
+    border-radius: 0.5rem; /* Bordas arredondadas */
+    color: #e5e7eb; /* Cor do texto (cinza claro) */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* Sombra para dar profundidade */
+}
+
+.modal-close {
+    color: #9ca3af; /* Cor do ícone de fechar (cinza médio) */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1; /* Alinhar melhor o X */
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #e5e7eb; /* Cor ao passar o mouse (cinza claro) */
+    text-decoration: none;
+}
+
+/* Melhorias visuais para selects e inputs dentro do modal, se necessário,
+   embora o Tailwind já aplique bons estilos base. */
+.modal-content select,
+.modal-content input[type="number"],
+.modal-content button {
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+/* Estilo para a lista de itens da venda no modal */
+#itensVendaContainer {
+    background-color: #2d3748; /* Um tom ligeiramente mais claro que o modal-content para destaque */
+    border-radius: 0.375rem; /* rounded-md */
+}
+
+#itensVendaContainer .flex { /* Para cada item na lista de venda */
+    border-bottom: 1px solid #4a5568; /* Separador mais sutil */
+}
+#itensVendaContainer .flex:last-child {
+    border-bottom: none; /* Remove a borda do último item */
+}
+
+/* Estilos para Toast Notifications */
+.toast {
+    padding: 12px 20px;
+    border-radius: 0.375rem; /* rounded-md */
+    color: #ffffff;
+    font-size: 0.875rem; /* text-sm */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-success {
+    background-color: #10B981; /* custom-button-green */
+}
+
+.toast-error {
+    background-color: #EF4444; /* custom-button-red */
+}
+
+.toast-info {
+    background-color: #3B82F6; /* blue-500 (Tailwind default) */
+}
+
+.toast-warning {
+    background-color: #F59E0B; /* amber-500 (Tailwind default) */
+}
+
+.toast-close-button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.25rem; /* text-xl */
+    line-height: 1;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0;
+}
+
+/* Adicionar um pouco mais de espaço e centralização para o conteúdo do modal em telas pequenas */
+@media (max-width: 640px) {
+    .modal-content {
+        margin: 5% auto;
+        width: 95%;
+        padding: 20px;
+    }
+}

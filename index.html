@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque e Caixa</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800" />
+
+    <link rel="icon" type="image/x-icon"
+        href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" />
+
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        // Configuração do Tailwind (pode ser movida para style.css se preferir uma abordagem sem script aqui)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-bg': '#111418',
+                        'custom-nav-item-active': '#293038',
+                        'custom-text-primary': '#ffffff',
+                        'custom-text-secondary': '#9dabb8',
+                        'custom-button-bg': '#1672ce',
+                        'custom-button-green': '#10B981',
+                        'custom-button-red': '#EF4444',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-custom-bg">
+    <div class="relative flex size-full min-h-screen flex-col dark group/design-root overflow-x-hidden"
+        style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+        <div class="layout-container flex h-full grow flex-col">
+            <div class="gap-1 px-2 sm:px-4 md:px-6 flex flex-1 flex-col lg:flex-row justify-center py-5">
+                <aside
+                    class="layout-content-container flex flex-col w-full lg:w-72 xl:w-80 flex-shrink-0 mb-4 lg:mb-0 lg:mr-4">
+                    <div
+                        class="flex h-full min-h-[auto] lg:min-h-[700px] flex-col justify-between bg-custom-bg p-4 rounded-lg shadow-md">
+                        <div class="flex flex-col gap-4">
+                            <h1 class="text-custom-text-primary text-base font-medium leading-normal">Gestão & Caixa
+                            </h1>
+                            <nav class="flex flex-col gap-2" id="menuContainer">
+                                <div
+                                    class="menu-item flex items-center gap-3 px-3 py-2 rounded-lg bg-custom-nav-item-active cursor-pointer hover:bg-gray-700">
+                                    <div class="text-custom-text-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            fill="currentColor" viewBox="0 0 256 256">
+                                            <path
+                                                d="M228,87.75V168a12,12,0,0,1-12,12H184V156a4,4,0,0,0-4-4H76a4,4,0,0,0-4,4v24H40a12,12,0,0,1-12-12V87.75a12,12,0,0,1,7.06-11L123.06,32.7A12,12,0,0,1,132.94,32.7L220.94,76.7A12,12,0,0,1,228,87.75ZM132,50.3,80.54,76H171.46ZM72,160h28V104h48v56h28v8H72Zm144,16h8a4,4,0,0,0,4-4V89.17l-36-15.43V100a12,12,0,0,1-12,12H76a12,12,0,0,1-12-12V73.74L28,89.17V168a4,4,0,0,0,4,4h8v24a12,12,0,0,0,12,12H204a12,12,0,0,0,12-12Z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-custom-text-primary text-sm font-medium leading-normal">Produtos</p>
+                                </div>
+                                <div
+                                    class="menu-item flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-700 cursor-pointer">
+                                    <div class="text-custom-text-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            fill="currentColor" viewBox="0 0 256 256">
+                                            <path
+                                                d="M218.14,138.14l-48,48A19.92,19.92,0,0,1,156,192H56a20,20,0,0,1-20-20V76A20,20,0,0,1,56,56H156a19.92,19.92,0,0,1,14.14,5.86l48,48A19.94,19.94,0,0,1,218.14,138.14ZM160,80a12,12,0,1,0-12-12A12,12,0,0,0,160,80Z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-custom-text-primary text-sm font-medium leading-normal">Categorias
+                                    </p>
+                                </div>
+                                <div
+                                    class="menu-item flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-700 cursor-pointer">
+                                    <div class="text-custom-text-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            fill="currentColor" viewBox="0 0 256 256">
+                                            <path
+                                                d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM72.17,199.49a71.52,71.52,0,0,1,27.29-22.05,72,72,0,1,1,57.08,0,71.52,71.52,0,0,1,27.29,22.05,88,88,0,1,1-111.66,0ZM128,160a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,160Z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-custom-text-primary text-sm font-medium leading-normal">
+                                        Clientes/Mesas</p>
+                                </div>
+                                <div
+                                    class="menu-item flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-700 cursor-pointer">
+                                    <div class="text-custom-text-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            fill="currentColor" viewBox="0 0 256 256">
+                                            <path
+                                                d="M224,72H32a8,8,0,0,0-8,8V176a8,8,0,0,0,8,8H224a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-84,88H56a8,8,0,0,1,0-16h84a8,8,0,0,1,0,16Zm52-32H56a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-custom-text-primary text-sm font-medium leading-normal">Caixa</p>
+                                </div>
+                                <div
+                                    class="menu-item flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-700 cursor-pointer">
+                                    <div class="text-custom-text-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            fill="currentColor" viewBox="0 0 256 256">
+                                            <path
+                                                d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-custom-text-primary text-sm font-medium leading-normal">Configurações
+                                    </p>
+                                </div>
+                            </nav>
+                        </div>
+                        <button
+                            class="flex min-w-[84px] w-full max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-custom-button-bg text-custom-text-primary text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-600 transition-colors mt-4"
+                            id="mainActionButton">
+                            <span class="truncate">Adicionar Produto</span>
+                        </button>
+                    </div>
+                </aside>
+
+                <main class="layout-content-container flex flex-col flex-1 p-4 min-w-0">
+                    <div class="flex flex-wrap justify-between items-center gap-3 pb-4 mb-4 border-b border-gray-700">
+                        <h2 class="text-custom-text-primary tracking-light text-2xl sm:text-3xl font-bold leading-tight"
+                            id="mainContentTitle">Produtos</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+                        id="contentGrid">
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div id="novaVendaModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeNovaVendaModal">&times;</span>
+            <h3 class="text-xl font-semibold mb-4 text-custom-text-primary">Nova Venda / Lançar Consumo</h3>
+            <div class="mb-4">
+                <label for="selectClienteMesa"
+                    class="block text-sm font-medium text-custom-text-secondary mb-1">Cliente/Mesa:</label>
+                <select id="selectClienteMesa"
+                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="selectProdutoVenda"
+                    class="block text-sm font-medium text-custom-text-secondary mb-1">Produto:</label>
+                <select id="selectProdutoVenda"
+                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="inputQuantidadeVenda"
+                    class="block text-sm font-medium text-custom-text-secondary mb-1">Quantidade:</label>
+                <input type="number" id="inputQuantidadeVenda" value="1" min="1"
+                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            </div>
+            <button id="adicionarItemVendaButton"
+                class="w-full bg-custom-button-bg hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg mb-4">Adicionar
+                Item</button>
+
+            <h4 class="text-lg font-semibold mb-2 text-custom-text-primary">Itens da Venda:</h4>
+            <div id="itensVendaContainer" class="mb-4 max-h-40 overflow-y-auto p-2 bg-gray-700 rounded">
+                <p class="text-custom-text-secondary text-sm">Nenhum item adicionado.</p>
+            </div>
+            <p class="text-custom-text-primary text-lg font-bold">Total: R$ <span id="totalVenda">0.00</span></p>
+            <div class="mt-6 flex justify-end gap-3">
+                <button id="cancelarVendaButton"
+                    class="bg-custom-button-red hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Cancelar</button>
+                <button id="finalizarVendaButton"
+                    class="bg-custom-button-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">Finalizar
+                    Venda</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Produto -->
+    <div id="adicionarProdutoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeAdicionarProdutoModal">&times;</span>
+            <h3 class="text-xl font-semibold mb-6 text-custom-text-primary">Adicionar Novo Produto</h3>
+
+            <div class="mb-4">
+                <label for="inputNomeProduto" class="block text-sm font-medium text-custom-text-secondary mb-1">Nome do
+                    Produto:</label>
+                <input type="text" id="inputNomeProduto"
+                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Ex: Café Espresso Duplo">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="inputQuantidadeProduto"
+                        class="block text-sm font-medium text-custom-text-secondary mb-1">Quantidade em Estoque:</label>
+                    <input type="number" id="inputQuantidadeProduto" value="1" min="0"
+                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ex: 100">
+                </div>
+                <div>
+                    <label for="inputPrecoProduto"
+                        class="block text-sm font-medium text-custom-text-secondary mb-1">Preço (R$):</label>
+                    <input type="number" id="inputPrecoProduto" step="0.01" min="0"
+                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ex: 5.50">
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="selectCategoriaProduto"
+                    class="block text-sm font-medium text-custom-text-secondary mb-1">Categoria:</label>
+                <select id="selectCategoriaProduto"
+                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <!-- Opções de categoria serão populadas via JavaScript -->
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="inputImgPlaceholderProduto"
+                        class="block text-sm font-medium text-custom-text-secondary mb-1">Texto para Imagem
+                        (Placeholder):</label>
+                    <input type="text" id="inputImgPlaceholderProduto"
+                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ex: Café">
+                </div>
+                <div>
+                    <label for="inputCorPlaceholderProduto"
+                        class="block text-sm font-medium text-custom-text-secondary mb-1">Cor do Placeholder
+                        (Hex):</label>
+                    <input type="text" id="inputCorPlaceholderProduto"
+                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ex: 654321">
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end gap-3">
+                <button id="cancelarAdicionarProdutoButton"
+                    class="bg-custom-button-red hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Cancelar</button>
+                <button id="salvarNovoProdutoButton"
+                    class="bg-custom-button-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">Salvar
+                    Produto</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Categoria -->
+    <div id="adicionarCategoriaModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeAdicionarCategoriaModal">&times;</span>
+            <h3 class="text-xl font-semibold mb-6 text-custom-text-primary">Adicionar Nova Categoria</h3>
+
+            <div class="mb-4">
+                <label for="inputNomeCategoria" class="block text-sm font-medium text-custom-text-secondary mb-1">Nome
+                    da Categoria:</label>
+                <input type="text" id="inputNomeCategoria"
+                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Ex: Bebidas Quentes">
+            </div>
+
+            <div class="mb-4">
+                <label for="inputDescricaoCategoria"
+                    class="block text-sm font-medium text-custom-text-secondary mb-1">Descrição:</label>
+                <textarea id="inputDescricaoCategoria" rows="3"
+                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Ex: Cafés, chás, chocolates..."></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="inputImgPlaceholderCategoria"
+                        class="block text-sm font-medium text-custom-text-secondary mb-1">Texto para Imagem
+                        (Placeholder):</label>
+                    <input type="text" id="inputImgPlaceholderCategoria"
+                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ex: Bebidas">
+                </div>
+                <div>
+                    <label for="inputCorPlaceholderCategoria"
+                        class="block text-sm font-medium text-custom-text-secondary mb-1">Cor do Placeholder
+                        (Hex):</label>
+                    <input type="text" id="inputCorPlaceholderCategoria"
+                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ex: 7ca6c4">
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end gap-3">
+                <button id="cancelarAdicionarCategoriaButton"
+                    class="bg-custom-button-red hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Cancelar</button>
+                <button id="salvarNovaCategoriaButton"
+                    class="bg-custom-button-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">Salvar
+                    Categoria</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Cliente/Mesa -->
+    <div id="adicionarClienteMesaModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeAdicionarClienteMesaModal">&times;</span>
+            <h3 class="text-xl font-semibold mb-6 text-custom-text-primary">Adicionar Novo Cliente/Mesa</h3>
+
+            <div class="mb-4">
+                <label for="inputNomeClienteMesa" class="block text-sm font-medium text-custom-text-secondary mb-1">Nome
+                    do Cliente ou Nº da Mesa:</label>
+                <input type="text" id="inputNomeClienteMesa"
+                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Ex: Mesa 05 ou João Silva">
+            </div>
+
+            <div class="mb-4">
+                <label for="selectStatusClienteMesa"
+                    class="block text-sm font-medium text-custom-text-secondary mb-1">Status Inicial:</label>
+                <select id="selectStatusClienteMesa"
+                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="Livre">Livre</option>
+                    <option value="Ativo">Ativo (para clientes)</option>
+                    <option value="Ocupada">Ocupada (para mesas)</option>
+                    <!-- Adicionar mais status conforme necessário -->
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="inputImgPlaceholderClienteMesa"
+                        class="block text-sm font-medium text-custom-text-secondary mb-1">Texto para Imagem
+                        (Placeholder):</label>
+                    <input type="text" id="inputImgPlaceholderClienteMesa"
+                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ex: Mesa 5">
+                </div>
+                <div>
+                    <label for="inputCorPlaceholderClienteMesa"
+                        class="block text-sm font-medium text-custom-text-secondary mb-1">Cor do Placeholder
+                        (Hex):</label>
+                    <input type="text" id="inputCorPlaceholderClienteMesa"
+                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ex: 90ee90">
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end gap-3">
+                <button id="cancelarAdicionarClienteMesaButton"
+                    class="bg-custom-button-red hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Cancelar</button>
+                <button id="salvarNovoClienteMesaButton"
+                    class="bg-custom-button-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">Salvar
+                    Cliente/Mesa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-[1000] w-full max-w-xs space-y-3"></div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
