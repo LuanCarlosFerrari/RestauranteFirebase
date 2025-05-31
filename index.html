@@ -248,109 +248,77 @@
         </div>
     </div>
 
-    <!-- Modal Adicionar Categoria -->
-    <div id="adicionarCategoriaModal" class="modal">
+    <!-- Modal Editar Produto -->
+    <div id="editProdutoModal" class="modal" style="display: none;"> <!-- Adicionado style="display: none;" -->
         <div class="modal-content">
-            <span class="modal-close" id="closeAdicionarCategoriaModal">&times;</span>
-            <h3 class="text-xl font-semibold mb-6 text-custom-text-primary">Adicionar Nova Categoria</h3>
-
-            <div class="mb-4">
-                <label for="inputNomeCategoria" class="block text-sm font-medium text-custom-text-secondary mb-1">Nome
-                    da Categoria:</label>
-                <input type="text" id="inputNomeCategoria"
-                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Ex: Bebidas Quentes">
+            <div class="modal-header"> <!-- Adicionada div para o header do modal -->
+                <h3 class="text-xl font-semibold text-custom-text-primary">Editar Produto</h3>
+                <span class="modal-close" id="closeEditProdutoModal">&times;</span>
             </div>
+            <form id="editProdutoForm">
+                <div class="modal-body"> <!-- Adicionada div para o corpo do modal -->
+                    <div class="mb-4">
+                        <label for="inputNomeEditProduto"
+                            class="block text-sm font-medium text-custom-text-secondary mb-1">Nome do Produto:</label>
+                        <input type="text" id="inputNomeEditProduto"
+                            class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                    </div>
 
-            <div class="mb-4">
-                <label for="inputDescricaoCategoria"
-                    class="block text-sm font-medium text-custom-text-secondary mb-1">Descrição:</label>
-                <textarea id="inputDescricaoCategoria" rows="3"
-                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Ex: Cafés, chás, chocolates..."></textarea>
-            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="inputQuantidadeEditProduto"
+                                class="block text-sm font-medium text-custom-text-secondary mb-1">Quantidade:</label>
+                            <input type="number" id="inputQuantidadeEditProduto" min="0"
+                                class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                required>
+                        </div>
+                        <div>
+                            <label for="inputPrecoEditProduto"
+                                class="block text-sm font-medium text-custom-text-secondary mb-1">Preço (R$):</label>
+                            <input type="number" id="inputPrecoEditProduto" step="0.01" min="0"
+                                class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                required>
+                        </div>
+                    </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div>
-                    <label for="inputImgPlaceholderCategoria"
-                        class="block text-sm font-medium text-custom-text-secondary mb-1">Texto para Imagem
-                        (Placeholder):</label>
-                    <input type="text" id="inputImgPlaceholderCategoria"
-                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Ex: Bebidas">
+                    <div class="mb-4">
+                        <label for="selectCategoriaEditProduto"
+                            class="block text-sm font-medium text-custom-text-secondary mb-1">Categoria:</label>
+                        <select id="selectCategoriaEditProduto"
+                            class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                            <option value="">Selecione uma Categoria</option>
+                            <!-- Opções de categoria serão populadas por JS -->
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="inputImgPlaceholderEditProduto"
+                                class="block text-sm font-medium text-custom-text-secondary mb-1">Texto Imagem
+                                Placeholder:</label>
+                            <input type="text" id="inputImgPlaceholderEditProduto"
+                                class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                placeholder="Ex: CafeExp">
+                        </div>
+                        <div>
+                            <label for="inputCorPlaceholderEditProduto"
+                                class="block text-sm font-medium text-custom-text-secondary mb-1">Cor Imagem Placeholder
+                                (Hex):</label>
+                            <input type="text" id="inputCorPlaceholderEditProduto"
+                                class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                placeholder="Ex: 654321">
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label for="inputCorPlaceholderCategoria"
-                        class="block text-sm font-medium text-custom-text-secondary mb-1">Cor do Placeholder
-                        (Hex):</label>
-                    <input type="text" id="inputCorPlaceholderCategoria"
-                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Ex: 7ca6c4">
+                <div class="modal-footer"> <!-- Adicionada div para o footer do modal -->
+                    <button type="button" id="cancelarEditProdutoButton" class="btn-secondary">Cancelar</button>
+                    <!-- Aplicar classes de botão apropriadas -->
+                    <button type="submit" id="salvarEditProdutoButton" class="btn-primary">Salvar Alterações</button>
+                    <!-- Aplicar classes de botão apropriadas -->
                 </div>
-            </div>
-
-            <div class="mt-6 flex justify-end gap-3">
-                <button id="cancelarAdicionarCategoriaButton"
-                    class="bg-custom-button-red hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Cancelar</button>
-                <button id="salvarNovaCategoriaButton"
-                    class="bg-custom-button-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">Salvar
-                    Categoria</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Adicionar Cliente/Mesa -->
-    <div id="adicionarClienteMesaModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" id="closeAdicionarClienteMesaModal">&times;</span>
-            <h3 class="text-xl font-semibold mb-6 text-custom-text-primary">Adicionar Novo Cliente/Mesa</h3>
-
-            <div class="mb-4">
-                <label for="inputNomeClienteMesa" class="block text-sm font-medium text-custom-text-secondary mb-1">Nome
-                    do Cliente ou Nº da Mesa:</label>
-                <input type="text" id="inputNomeClienteMesa"
-                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Ex: Mesa 05 ou João Silva">
-            </div>
-
-            <div class="mb-4">
-                <label for="selectStatusClienteMesa"
-                    class="block text-sm font-medium text-custom-text-secondary mb-1">Status Inicial:</label>
-                <select id="selectStatusClienteMesa"
-                    class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    <option value="Livre">Livre</option>
-                    <option value="Ativo">Ativo (para clientes)</option>
-                    <option value="Ocupada">Ocupada (para mesas)</option>
-                    <!-- Adicionar mais status conforme necessário -->
-                </select>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div>
-                    <label for="inputImgPlaceholderClienteMesa"
-                        class="block text-sm font-medium text-custom-text-secondary mb-1">Texto para Imagem
-                        (Placeholder):</label>
-                    <input type="text" id="inputImgPlaceholderClienteMesa"
-                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Ex: Mesa 5">
-                </div>
-                <div>
-                    <label for="inputCorPlaceholderClienteMesa"
-                        class="block text-sm font-medium text-custom-text-secondary mb-1">Cor do Placeholder
-                        (Hex):</label>
-                    <input type="text" id="inputCorPlaceholderClienteMesa"
-                        class="bg-gray-600 border border-gray-500 text-custom-text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Ex: 90ee90">
-                </div>
-            </div>
-
-            <div class="mt-6 flex justify-end gap-3">
-                <button id="cancelarAdicionarClienteMesaButton"
-                    class="bg-custom-button-red hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Cancelar</button>
-                <button id="salvarNovoClienteMesaButton"
-                    class="bg-custom-button-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">Salvar
-                    Cliente/Mesa</button>
-            </div>
+            </form>
         </div>
     </div>
 
